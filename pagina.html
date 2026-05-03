@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sticker Mania</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #111;
+    }
+
+    header {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 35px;
+      background-color: white;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .left-header {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .logo {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #d63384;
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+    }
+
+    .menu {
+      position: relative;
+    }
+
+    .menu-button {
+      font-size: 32px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .menu-content {
+      display: none;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 220px;
+      background-color: white;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .menu:hover .menu-content {
+      display: block;
+    }
+
+    .menu-content a {
+      display: block;
+      padding: 15px;
+      text-decoration: none;
+      color: #111;
+      font-weight: bold;
+    }
+
+    .menu-content a:hover {
+      background-color: #ffe0f3;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #222;
+      margin-left: 35px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    nav a:hover {
+      color: #d63384;
+    }
+
+    .slider {
+      position: relative;
+      height: 470px;
+      overflow: hidden;
+      background-color: #f5f5f5;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .prev,
+    .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.35);
+      color: white;
+      border: none;
+      font-size: 28px;
+      padding: 12px 17px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .prev {
+      left: 20px;
+    }
+
+    .next {
+      right: 20px;
+    }
+
+    .prev:hover,
+    .next:hover {
+      background: rgba(0,0,0,0.65);
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 22px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .dot {
+      height: 15px;
+      width: 15px;
+      margin: 0 8px;
+      display: inline-block;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: black;
+    }
+
+    .slider-text {
+        position: absolute;
+        bottom: 10px;
+        left: 35px;
+
+        background: none;        
+        padding: 0;               
+        box-shadow: none;         
+
+        font-weight: 800;
+        font-size: 22px;
+        color: rgb(0, 0, 0);              
+        font-family: Arial, sans-serif;
+
+        text-shadow: 0 2px 8px rgba(0,0,0,0.7); 
+    }
+
+    main {
+      padding: 35px;
+    }
+
+    section {
+      margin-bottom: 65px;
+    }
+
+    section h2 {
+      text-align: left;
+      font-size: 28px;
+      margin-bottom: 25px;
+      font-family: Arial, sans-serif;
+      color: #222;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    article {
+      position: relative;
+      background-color: #f6f6f6;
+      min-height: 330px;
+      overflow: hidden;
+    }
+
+    article img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      background-color: #f3f3f3;
+      display: block;
+    }
+
+    .info {
+      padding: 14px 10px;
+      background-color: white;
+    }
+
+    article h3 {
+      font-size: 15px;
+      margin: 0 0 8px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .precio {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .add-btn {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 66px;
+      opacity: 0;
+      padding: 16px;
+      border: none;
+      background-color: black;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    article:hover .add-btn {
+      opacity: 1;
+    }
+
+    footer {
+      padding: 30px 35px;
+      border-top: 1px solid #eee;
+      color: #555;
+    }
+    .series-menu {
+    position: relative;
+    display: inline-block;
+    }
+
+    .series-dropdown {
+    display: none;
+    position: absolute;
+    top: 28px;
+    left: 0;
+    background: white;
+    min-width: 190px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 30;
+    }
+
+    .series-dropdown a {
+    display: block;
+    padding: 12px 16px;
+    margin: 0;
+    color: black;
+    text-decoration: none;
+    letter-spacing: 1px;
+    }
+
+    .series-menu:hover .series-dropdown {
+    display: block;
+}
+  </style>
+</head>
+
+<body>
+
+    <header>
+    <div class="left-header">
+        <div class="logo">Sticker Mania</div>
+    </div>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+
+        <div class="series-menu">
+        <a href="#">Series</a>
+
+        <div class="series-dropdown">
+            <a href="#friends">Friends</a>
+            <a href="#greys">Grey's Anatomy</a>
+            <a href="#harry">Harry Potter</a>
+            <a href="#stranger">Stranger Things</a>
+        </div>
+        </div>
+
+        <a href="#contacto">Contacto</a>
+        <a href="#carrito">🛒 Carrito</a>
+    </nav>
+    </header>
+
+  <section class="slider" id="inicio">
+    <img src="img/greys.jpg" class="slide active" alt="Imagen de Grey's Anatomy">
+    <img src="img/stranger.webp" class="slide" alt="Imagen de Stranger Things">
+    <img src="img/harry.jpg" class="slide" alt="Imagen de Harry Potter">
+    <img src="img/friends.avif" class="slide" alt="Imagen de Friends">
+
+    <button class="prev" aria-label="Imagen anterior">❮</button>
+    <button class="next" aria-label="Imagen siguiente">❯</button>
+
+    <div class="dots">
+      <span class="dot active" aria-label="Ver imagen 1"></span>
+      <span class="dot" aria-label="Ver imagen 2"></span>
+      <span class="dot" aria-label="Ver imagen 3"></span>
+      <span class="dot" aria-label="Ver imagen 4"></span>
+    </div>
+
+    <div class="slider-text">
+      Un universo de stickers inspirado en tus series y películas favoritas.
+    </div>
+  </section>
+
+  <main>
+
+    <section id="friends">
+      <h2>Friends</h2>
+      <div class="grid">
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Friends Central Perk"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Central Perk</h3><p class="precio">$ 1200</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Friends How you doin"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>How you doin?</h3><p class="precio">$ 1150</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Friends sofá"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Orange Couch</h3><p class="precio">$ 1300</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Friends puerta"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Purple Door</h3><p class="precio">$ 1250</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Friends taza"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Coffee Time</h3><p class="precio">$ 1100</p></div></article>
+      </div>
+    </section>
+
+    <section id="greys">
+      <h2>Grey's Anatomy</h2>
+      <div class="grid">
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Grey's Anatomy"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Save Lives</h3><p class="precio">$ 1300</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Meredith Grey"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Team Meredith</h3><p class="precio">$ 1250</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Grey Sloan"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Grey Sloan</h3><p class="precio">$ 1400</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Doctor Mode"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Doctor Mode</h3><p class="precio">$ 1180</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Anatomy Heart"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Anatomy Heart</h3><p class="precio">$ 1320</p></div></article>
+      </div>
+    </section>
+
+    <section id="harry">
+      <h2>Harry Potter</h2>
+      <div class="grid">
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Harry Potter varita"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Magic Wand</h3><p class="precio">$ 1400</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Harry Potter lentes"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Wizard Glasses</h3><p class="precio">$ 1350</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Harry Potter castillo"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Magic Castle</h3><p class="precio">$ 1500</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Harry Potter lechuza"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Owl Mail</h3><p class="precio">$ 1280</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Harry Potter lightning"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Lightning</h3><p class="precio">$ 1200</p></div></article>
+      </div>
+    </section>
+
+    <section id="stranger">
+      <h2>Stranger Things</h2>
+      <div class="grid">
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Stranger Things Upside Down"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Upside Down</h3><p class="precio">$ 1300</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Stranger Things luces"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Hawkins Lights</h3><p class="precio">$ 1250</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Stranger Things bicicleta"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Bike Club</h3><p class="precio">$ 1180</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Stranger Things arcade"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Arcade Night</h3><p class="precio">$ 1350</p></div></article>
+        <article><img src="https://via.placeholder.com/250" alt="Sticker Stranger Things monster"><button class="add-btn">Agregar al carrito</button><div class="info"><h3>Monster Mode</h3><p class="precio">$ 1450</p></div></article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="contacto">
+    <p>Contacto: stickermania@email.com</p>
+  </footer>
+
+  <script>
+    let index = 0;
+
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".dot");
+
+    function showSlide(i) {
+      slides.forEach(slide => slide.classList.remove("active"));
+      dots.forEach(dot => dot.classList.remove("active"));
+
+      slides[i].classList.add("active");
+      dots[i].classList.add("active");
+      index = i;
+    }
+
+    document.querySelector(".next").onclick = function () {
+      index = (index + 1) % slides.length;
+      showSlide(index);
+    };
+
+    document.querySelector(".prev").onclick = function () {
+      index = (index - 1 + slides.length) % slides.length;
+      showSlide(index);
+    };
+
+    dots.forEach(function(dot, i) {
+      dot.onclick = function () {
+        showSlide(i);
+      };
+    });
+  </script>
+
+</body>
+</html>

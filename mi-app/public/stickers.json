@@ -1,0 +1,46 @@
+[
+  {
+    "id": "friends",
+    "titulo": "Friends",
+    "stickers": [
+      { "imagen": "/img/friends1.jpg", "precio": "1.200" },
+      { "imagen": "/img/friends2.jpg", "precio": "1.500" },
+      { "imagen": "/img/friends3.jpg", "precio": "1.100" },
+      { "imagen": "/img/friends4.jpg", "precio": "1.300" },
+      { "imagen": "/img/friends5.jpg", "precio": "1.400" }
+    ]
+  },
+  {
+    "id": "greys",
+    "titulo": "Grey's Anatomy",
+    "stickers": [
+      { "imagen": "/img/greys1.jpg", "precio": "1.200" },
+      { "imagen": "/img/greys2.jpg", "precio": "1.600" },
+      { "imagen": "/img/greys3.jpg", "precio": "1.100" },
+      { "imagen": "/img/greys4.jpg", "precio": "1.300" },
+      { "imagen": "/img/greys5.jpg", "precio": "1.500" }
+    ]
+  },
+  {
+    "id": "harry",
+    "titulo": "Harry Potter",
+    "stickers": [
+      { "imagen": "/img/harry1.jpg", "precio": "1.400" },
+      { "imagen": "/img/harry2.jpg", "precio": "1.200" },
+      { "imagen": "/img/harry3.jpg", "precio": "1.600" },
+      { "imagen": "/img/harry4.jpg", "precio": "1.100" },
+      { "imagen": "/img/harry5.jpg", "precio": "1.300" }
+    ]
+  },
+  {
+    "id": "modern",
+    "titulo": "Modern Family",
+    "stickers": [
+      { "imagen": "/img/mf1.jpg", "precio": "1.200" },
+      { "imagen": "/img/mf2.jpg", "precio": "1.400" },
+      { "imagen": "/img/mf3.jpg", "precio": "1.100" },
+      { "imagen": "/img/mf4.jpg", "precio": "1.500" },
+      { "imagen": "/img/mf5.jpg", "precio": "1.300" }
+    ]
+  }
+]
