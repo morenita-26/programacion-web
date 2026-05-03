@@ -29,13 +29,13 @@ Animaciones y CSS
 
 CI/CD y deploy
 
-Commit y push a GitHub desde VS Code
-Deploy en Vercel conectando repositorio de GitHub
-Configurar Root Directory como mi-app
+- Commit y push a GitHub desde VS Code
+- Deploy en Vercel conectando repositorio de GitHub
+- Configurar Root Directory como mi-app
 
 Preguntas conceptuales
 
-Qué es un fetch y para qué sirve
-Qué es el DOM y cómo lo usa React
-Qué es una API
-Diferencias entre React puro y Next.js
+- Qué es un fetch y para qué sirve
+- Qué es el DOM y cómo lo usa React
+- Qué es una API
+- Diferencias entre React puro y Next.js
