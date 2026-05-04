@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <header className="navbar">
-      <div className="logo">
+    <div className="logo" style={{ cursor: "pointer" }} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
         <span className="brand">Sticker Mania</span>
         <span className="since">Since 2026</span>
       </div>
